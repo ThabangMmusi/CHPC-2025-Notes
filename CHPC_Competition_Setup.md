@@ -10,7 +10,7 @@ This is a one-time setup.
 3. Click the **NAT Networks** tab.
 4. Click **Create**.
    - You’ll get something like `NatNetwork`.
-   - Confirm CIDR is `10.0.2.0/24`.
+   - Confirm IPv4 Prefix is `10.0.2.0/24`.
    - Enable network.
 5. This acts as a **virtual router** for your cluster.
 
@@ -31,6 +31,7 @@ We're assuming two VMs: `ubuntu-head` (head node), `ubuntu-node1` (compute node)
 
 ```bash
 sudo apt update
+sudo apt-get upgrade
 sudo apt install openssh-server -y
 sudo systemctl enable ssh --now
 ```
