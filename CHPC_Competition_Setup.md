@@ -117,11 +117,11 @@ Use powershell if you don't have bash installed
 Get-Content $env:USERPROFILE\.ssh\id_rsa.pub | ssh your_username@localhost -p 2222 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 # Do the same for the other node
 ````
-#### Step 5.3: Test SSH
+#### Step 5.3: Test SSH from you HOST to VMs
 
 ```bash
-ssh -p 2222 your_username@127.0.0.1
-ssh -p 2223 your_username@127.0.0.1
+ssh -p 2222 your_username@127.0.0.1 # head >> if successful, type exit
+ssh -p 2223 your_username@127.0.0.1 # node1 >> if successful, type exit
 ```
 
 ---
