@@ -104,14 +104,14 @@ ssh-keygen -t ed25519
 ```
 Just press enter until it successfully created it.
 
-#### Step 5.2: Copy generated SSH Key to VMs, using this command from you Host
+#### Step 5.2: Copy generated SSH Key to VMs, using this command from your Host
 
 ```bash
+# use bash if you have it installed
 ssh-copy-id -p 2222 your_username@127.0.0.1
-```
-```bash
-ssh-copy-id -p 2223 your_username@127.0.0.1
-```
+# use powershell if you don't have bash installed
+Get-Content $env:USERPROFILE\.ssh\id_rsa.pub | ssh your_username@localhost -p 2222 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+# Do the same for the other node
 
 #### Step 5.3: Test SSH
 
