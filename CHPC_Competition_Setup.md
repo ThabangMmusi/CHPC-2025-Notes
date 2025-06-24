@@ -147,6 +147,24 @@ ssh-copy-id your_username@10.0.2.5
 ssh your_username@10.0.2.5
 ```
 
+#### Step 5.7: Generate Key on `node`
+
+```bash
+ssh-keygen
+```
+
+#### Step 5.7: Copy to `head`
+
+```bash
+ssh-copy-id your_username@10.0.2.4
+```
+
+#### Step 5.8: Test Passwordless from head to node1
+
+```bash
+ssh your_username@10.0.2.4
+```
+
 ---
 
 ## ✅ Summary Table
