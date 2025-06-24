@@ -104,10 +104,12 @@ ssh-keygen -t ed25519
 ```
 Just press enter until it successfully created it.
 
-#### Step 5.2: Copy Host Key to VMs
+#### Step 5.2: Copy generated SSH Key to VMs, using this command from you Host
 
 ```bash
 ssh-copy-id -p 2222 your_username@127.0.0.1
+```
+```bash
 ssh-copy-id -p 2223 your_username@127.0.0.1
 ```
 
