@@ -24,7 +24,7 @@ We're assuming two VMs: `ubuntu-head` (head node), `ubuntu-node1` (compute node)
 
 1. For each VM → **Settings** → **Network** → **Adapter 1**:
    - Enable adapter.
-   - Attached to: NAT Network  not `NAT`
+   - Attached to: `NAT Network`. NB: this is not `NAT`
    - Name: `NatNetwork`. `NB:` this is what you **created** on `step 1`
    
 
@@ -54,7 +54,7 @@ NB: you cannot ssh to `node1` if is not up yet.
 
 ```bash
 ping 10.0.2.5
-ssh your_user@10.0.2.5
+ssh your_username@10.0.2.5
 ```
 
 ---
@@ -69,10 +69,12 @@ ssh your_user@10.0.2.5
 ### In VirtualBox
 
 1. **File** → **Tools** → **Network Manager** → `NatNetwork` → **Port Forwarding**
-2. Add 2 rules:
-   - `head-ssh`: Host Port `2222`, Guest IP `10.0.2.4`, Guest Port `22`
-   - `node1-ssh`: Host Port `2223`, Guest IP `10.0.2.5`, Guest Port `22`
+2. Add 2 rules: use the `green`plus sign➕, on the right
+   - leave the `host ip` blank:
+      - `head-ssh`: Host Port `2222`, Guest IP `10.0.2.4`, Guest Port `22`
+      - `node1-ssh`: Host Port `2223`, Guest IP `10.0.2.5`, Guest Port `22`
 
+   To test if they are working, use you host(`Windows machine`) terminal in the `next step`
 ---
 
 ## ✅ Step 4: SSH from Host to VMs
@@ -83,8 +85,8 @@ From host terminal: Open `Powershell` on you windows machine(Host)
 Test if you can ssh to `head` and `node1` from your windows machine(Host) using `Powershell`
 
 ```bash
-ssh your_user@127.0.0.1 -p 2222  # head >> if successful, type exit
-ssh your_user@127.0.0.1 -p 2223  # node1 >> if successful, type exit
+ssh your_username@127.0.0.1 -p 2222  # head >> if successful, type exit
+ssh your_username@127.0.0.1 -p 2223  # node1 >> if successful, type exit
 ```
 **Results**
 * If you where able to *ssh* to both machine, you in **good** track ✅ 
@@ -98,22 +100,21 @@ ssh your_user@127.0.0.1 -p 2223  # node1 >> if successful, type exit
 #### Step 5.1: Generate SSH Key (if needed)
 
 ```bash
-ls -l ~/.ssh/id_rsa.pub
-ssh-keygen -t rsa -b 4096
+ssh-keygen -t ed25519
 ```
 
 #### Step 5.2: Copy Host Key to VMs
 
 ```bash
-ssh-copy-id -p 2222 your_user@127.0.0.1
-ssh-copy-id -p 2223 your_user@127.0.0.1
+ssh-copy-id -p 2222 your_username@127.0.0.1
+ssh-copy-id -p 2223 your_username@127.0.0.1
 ```
 
 #### Step 5.3: Test SSH
 
 ```bash
-ssh -p 2222 your_user@127.0.0.1
-ssh -p 2223 your_user@127.0.0.1
+ssh -p 2222 your_username@127.0.0.1
+ssh -p 2223 your_username@127.0.0.1
 ```
 
 ---
@@ -123,20 +124,20 @@ ssh -p 2223 your_user@127.0.0.1
 #### Step 5.4: Generate Key on `head`
 
 ```bash
-ssh -p 2222 your_user@127.0.0.1
+ssh -p 2222 your_username@127.0.0.1
 ssh-keygen
 ```
 
 #### Step 5.5: Copy to `node1`
 
 ```bash
-ssh-copy-id your_user@10.0.2.5
+ssh-copy-id your_username@10.0.2.5
 ```
 
 #### Step 5.6: Test Passwordless from head to node1
 
 ```bash
-ssh your_user@10.0.2.5
+ssh your_username@10.0.2.5
 ```
 
 ---
