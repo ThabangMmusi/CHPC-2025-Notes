@@ -102,6 +102,7 @@ ssh your_username@127.0.0.1 -p 2223  # node1 >> if successful, type exit
 ```bash
 ssh-keygen -t ed25519
 ```
+Just press enter until it successfully created it.
 
 #### Step 5.2: Copy Host Key to VMs
 
