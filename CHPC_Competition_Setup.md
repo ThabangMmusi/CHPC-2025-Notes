@@ -6,7 +6,7 @@
 This is a one-time setup.
 
 1. Open **VirtualBox**.
-2. Go to **File** → **Tools** → **Network Manager**.
+2. Go to **File** → **Tools** → **Network**.
 3. Click the **NAT Networks** tab.
 4. Click **Create**.
    - You’ll get something like `NatNetwork`.
@@ -18,7 +18,7 @@ This is a one-time setup.
 
 ## ✅ Step 2: Configure Your Ubuntu VMs
 
-We're assuming two VMs: `ubuntu-head` (head node), `ubuntu-node1` (compute node).
+We're assuming two VMs: `headnode`and `nodeone`.
 
 ### 🖧 Step 2.1: Attach VMs to the `NAT Network` not `NAT`
 
