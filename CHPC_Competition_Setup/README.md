@@ -90,6 +90,22 @@ ssh your_username@127.0.0.1 -p 2223  # node1 >> if successful, type exit
 ```
 **Results**
 * If you where able to *ssh* to both machine, you in **good** track ✅ 
+* If NOT😒, and you are getting this error:
+   ```
+   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+   @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+   IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+   Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+   ....
+   Host key for [<ip address>]:<port> has changed and you have requested strict checking.
+   Host key verification failed.
+   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+   ```
+   ### ⚡ To delete the offending SSH key for just that host/port:
+   ```bash
+   ssh-keygen -R <ip address>:<port>
+   ```
 * If NOT😒, please go to `step 2.1` & redo it 🔁, on the instance you cant ssh to.
 ---
 
