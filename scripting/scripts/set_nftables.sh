@@ -7,9 +7,9 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Install nftables with suppressed output
-echo "Installing nftables..."
+echo "Installing nftables package..."
 sudo apt install -y nftables > /dev/null 2>&1
-echo "Installed successfully!!!"
+echo "Installed nftables package successfully!!!"
 echo
 
 # Update and upgrade packages with suppressed output
@@ -115,4 +115,3 @@ echo "Displaying the current nftables ruleset..."
 echo "============================================================================="
 sudo nft list ruleset
 echo "============================================================================="
-
