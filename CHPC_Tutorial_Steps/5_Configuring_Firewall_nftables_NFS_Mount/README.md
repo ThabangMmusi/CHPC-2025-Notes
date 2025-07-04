@@ -4,20 +4,22 @@ Network File System (NFS) allows you to share directories and files with other s
 
 ## NFS Server Configuration (Head Node)
 
-First, ensure your head node is configured as an NFS server. This typically involves installing `nfs-kernel-server` (Debian/Ubuntu) or `nfs-utils` (RHEL/Rocky/AlmaLinux) and configuring the `/etc/exports` file.
+1. Install the NFS server package on your head node:
+    ```bash
+    sudo apt install nfs-kernel-server
+    ```
 
-Example `/etc/exports` entry on the head node to export `/home` to your compute node's internal IP:
+1. Edit `/etc/exports` on the head node to export `/home` to your internal network:
 
-```conf
-/home 10.100.0.0/16(rw,sync,no_subtree_check,no_root_squash)
-```
+    ```conf
+    /home    <internal_network>(rw,async,no_subtree_check,no_root_squash)
+    ```
 
-After modifying `/etc/exports`, export the shares and restart the NFS service:
+1. Export the shares and restart the NFS service:
 
-```bash
-sudo exportfs -ra
-sudo systemctl restart nfs-server
-```
+    ```bash
+    sudo systemctl restart nfs-kernel-server
+    ```
 
 ## NFS Client Installation (Compute Node)
 

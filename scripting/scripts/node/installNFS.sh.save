@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Ensure the SERVER_IP variable is provided
+if [ -z "$1" ]; then
+  echo "Error: Please provide the SERVER IP (Local ip)"
+  exit 1
+fi
+
+SERVER_IP="$1"
+
+# INSTALL NFS
+echo "Starting the NFS installation...."
+sudo apt install nfs-common -y > /dev/null 2>&1
+echo ">>Done!"
+echo
+echo "...."
+cd /
+sudo mount $SERVER_IP:/home /home
+echo ">>Done!"
+echo
+echo "Comment out (add a "#" in front of) all the pool"
+read -p "Press Enter to edit"
+sudo nano /etc/chrony/chrony.conf
+
+echo "Start and enable the chronyd service...."
+sudo systemctl enable chrony  > /dev/null 2>&1
+sudo systemctl restart chrony  > /dev/null 2>&1
+echo ">>Done!"
+echo
+
+# Verify the sources of the NTP server
+echo "Verifying the sources of the NTP server..."
+sudo chronyc sources
+echo ">>Done!"
