@@ -31,7 +31,32 @@ cat << EOF > "$NFT_RULES_FILE"
 flush ruleset
 
 table inet hn_table {
-  chain hn_input { type filter hook input priority 0 ; policy drop ; }
+  chain hn_input {
+    type filter hook input priority 0 ; policy drop ;
+
+    # Allow established and related connections
+    ct state related,established accept
+
+    # Drop invalid connections
+    ct state invalid drop
+
+    # Allow loopback traffic
+    iif lo accept
+
+    # Jump to TCP/UDP chains for specific ports
+    tcp dport { ssh, 2049 } jump hn_tcp_chain
+    udp dport { 123 } jump hn_udp_chain
+
+    # Reject other UDP traffic
+    meta l4proto udp reject
+
+    # Reject other TCP traffic with TCP reset
+    meta l4proto tcp reject with tcp reset
+
+    # Reject other traffic with icmpx port-unreachable
+    counter reject with icmpx port-unreachable
+  }
+
   chain hn_forward { type filter hook forward priority 0 ; policy drop ; }
   chain hn_output { type filter hook output priority 0 ; policy accept ; }
 
@@ -43,28 +68,6 @@ table inet hn_table {
   chain hn_udp_chain {
     udp dport 123 accept
   }
-
-  # Allow established and related connections
-  ct state related,established accept
-
-  # Drop invalid connections
-  ct state invalid drop
-
-  # Allow loopback traffic
-  iif lo accept
-
-  # Jump to TCP/UDP chains for specific ports
-  tcp dport { ssh, 2049 } jump hn_tcp_chain
-  udp dport { 123 } jump hn_udp_chain
-
-  # Reject other UDP traffic
-  meta l4proto udp reject
-
-  # Reject other TCP traffic with TCP reset
-  meta l4proto tcp reject with tcp reset
-
-  # Reject other traffic with icmpx port-unreachable
-  counter reject with icmpx port-unreachable
 }
 EOF
 
